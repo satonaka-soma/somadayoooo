@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>スタンプカード React版</title>
 
-    <!-- PWA関連 -->
+    <!-- PWA用 -->
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" href="icon-192.png" />
-    <link rel="apple-touch-icon" href="icon-512.png" />
-    <meta name="theme-color" content="#10b981" />
+    <link rel="icon" href="icons/icon-192.png" />
 
     <style>
       body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
         background: #f9fafb;
       }
       #root {
@@ -24,6 +23,12 @@
   </head>
   <body>
     <div id="root">スタンプカード React版 読み込み中…</div>
+
+    <!-- React本体 (CDNから) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- ビルドしたbundle.js -->
     <script src="./bundle.js"></script>
   </body>
 </html>
