@@ -5,16 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>スタンプカード React版</title>
 
-  <!-- React / ReactDOM（UMD） -->
+  <!-- React / ReactDOM (UMD版) -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-  <!-- Babel（JSX をブラウザで変換） -->
+  <!-- Babel（JSXをブラウザで変換する） -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f3f4f6}
+    html,body{margin:0;padding:0;height:100%;background:#f3f4f6;font-family:sans-serif}
     #root{min-height:100vh;display:flex;align-items:center;justify-content:center;color:#475569}
     .err{white-space:pre-wrap;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px;margin:16px}
   </style>
@@ -22,19 +21,15 @@
 <body>
   <div id="root">スタンプカード React版 読み込み中…</div>
 
-  <!-- ここがポイント：bundle.js を JSX として Babel 変換させる -->
-  <script
-    type="text/babel"
-    data-presets="env,react"
-    src="./bundle.js">
-  </script>
+  <!-- あなたの bundle.js を JSX として読み込む -->
+  <script type="text/babel" data-presets="env,react" src="./bundle.js"></script>
 
-  <!-- 画面真っ白のとき即エラー内容を出す（開発補助） -->
+  <!-- デバッグ用：エラーを root に表示 -->
   <script>
     window.addEventListener('error', e => {
       const r=document.getElementById('root');
       if(!r) return;
-      r.innerHTML = '<div class="err"><b>実行時エラー</b>\\n'+ (e?.error?.stack||e.message||'') + '</div>';
+      r.innerHTML = '<div class="err"><b>実行時エラー</b>\n'+ (e?.error?.stack||e.message||'不明なエラー') + '</div>';
     });
   </script>
 </body>
