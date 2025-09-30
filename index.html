@@ -2,20 +2,16 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>スタンプカード React版</title>
 
     <!-- PWA（任意） -->
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" href="icon-192.png" />
-    <link rel="apple-touch-icon" href="icon-512.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
     <meta name="theme-color" content="#10b981" />
 
     <style>
-      :root { color-scheme: light; }
       html, body { height: 100%; }
       body {
         margin: 0;
@@ -23,74 +19,18 @@
           "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
         background: #f9fafb;
       }
-      #root {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-      }
-      .loading {
-        opacity: 0.7;
-        font-size: 14px;
-      }
-      .error {
-        max-width: 92vw;
-        margin: 24px auto 0;
-        padding: 12px 14px;
-        background: #fff1f2;
-        color: #991b1b;
-        border: 1px solid #fecdd3;
-        border-radius: 12px;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 12px;
-        white-space: pre-wrap;
-        line-height: 1.5;
-      }
+      #root { min-height: 100vh; display: grid; place-items: center; }
+      .loading { opacity: .7; font-size: 14px; }
     </style>
   </head>
   <body>
-    <noscript>JavaScript を有効にしてください。</noscript>
     <div id="root"><span class="loading">スタンプカード React版 読み込み中…</span></div>
 
-    <!-- React 18（UMD、グローバル React / ReactDOM を提供） -->
+    <!-- React 18 (UMD) を先に読み込む ※グローバルに React/ReactDOM を提供 -->
     <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
 
-    <!-- フォールバック付きローダ：ESM import を2回試し、ダメなら詳細エラーを表示 -->
-    <script type="module">
-      const rootEl = document.getElementById("root");
-
-      async function loadApp() {
-        try {
-          // ① キャッシュバスター付き（Pagesの古いキャッシュ回避）
-          const mod1 = await import("./bundle.js?v=3");
-          return mod1?.default || mod1;
-        } catch (e1) {
-          try {
-            // ② 素のパスで再挑戦
-            const mod2 = await import("./bundle.js");
-            return mod2?.default || mod2;
-          } catch (e2) {
-            // ③ それでもダメなら画面に詳細エラーを出す
-            rootEl.innerHTML =
-              '<div class="error"><b>読み込みエラー</b>\\n' +
-              (e1?.message || e1) + '\\n----\\n' +
-              (e2?.message || e2) + '\\n\\n' +
-              'bundle.js が正しく配信されているか、ファイル名/場所を確認してください。</div>';
-            throw e2;
-          }
-        }
-      }
-
-      function mount(App) {
-        rootEl.innerHTML = "";
-        const root = ReactDOM.createRoot(rootEl);
-        root.render(React.createElement(App));
-      }
-
-      (async () => {
-        const App = await loadApp();
-        mount(App);
-      })();
-    </script>
+    <!-- あなたのビルド済みバンドル（ESMではなく通常スクリプトとして実行） -->
+    <script src="./bundle.js?v=4"></script>
   </body>
 </html>
