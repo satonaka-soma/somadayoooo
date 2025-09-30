@@ -110,58 +110,22 @@ function Background({theme}){
 
 /* ========= helpers: theme vars ========= */
 function useThemeVars(theme){
-  // CSS変数で色を配信（可読性改善）。返り値：ガチャ文字色と影。
   return useMemo(()=>{
     if(theme==="night"){
-      return {
-        style:{
-          "--fg":"#f8fafc",
-          "--fgMuted":"#cbd5e1",
-          "--cardBg":"rgba(30,41,59,.6)",
-          "--chipBg":"rgba(15,23,42,.5)",
-          "--accent":"#22d3ee",
-        },
-        gachaText:"#ffffff",
-        gachaShadow:"0 0 10px rgba(0,0,0,.6)"
-      };
+      return { style:{ "--fg":"#f8fafc","--fgMuted":"#cbd5e1","--cardBg":"rgba(30,41,59,.6)","--chipBg":"rgba(15,23,42,.5)","--accent":"#22d3ee" },
+               gachaText:"#ffffff", gachaShadow:"0 0 10px rgba(0,0,0,.6)" };
     }
     if(theme==="wood"){
-      return {
-        style:{
-          "--fg":"#3a2b25",
-          "--fgMuted":"#6b5a52",
-          "--cardBg":"rgba(255,255,255,.82)",
-          "--chipBg":"rgba(255,255,255,.75)",
-          "--accent":"#10b981",
-        },
-        gachaText:"#231815",
-        gachaShadow:"0 1px 2px rgba(255,255,255,.6), 0 0 8px rgba(0,0,0,.15)"
-      };
+      return { style:{ "--fg":"#3a2b25","--fgMuted":"#6b5a52","--cardBg":"rgba(255,255,255,.82)","--chipBg":"rgba(255,255,255,.75)","--accent":"#10b981" },
+               gachaText:"#231815", gachaShadow:"0 1px 2px rgba(255,255,255,.6), 0 0 8px rgba(0,0,0,.15)" };
     }
     if(theme==="notebook"){
-      return {
-        style:{
-          "--fg":"#111827",
-          "--fgMuted":"#6b7280",
-          "--cardBg":"rgba(255,255,255,.86)",
-          "--chipBg":"rgba(255,255,255,.8)",
-          "--accent":"#10b981",
-        },
-        gachaText:"#111827",
-        gachaShadow:"0 1px 2px rgba(255,255,255,.7)"
-      };
+      return { style:{ "--fg":"#111827","--fgMuted":"#6b7280","--cardBg":"rgba(255,255,255,.86)","--chipBg":"rgba(255,255,255,.8)","--accent":"#10b981" },
+               gachaText:"#111827", gachaShadow:"0 1px 2px rgba(255,255,255,.7)" };
     }
-    // island（default）
-    return {
-      style:{
-        "--fg":"#0f172a",
-        "--fgMuted":"#475569",
-        "--cardBg":"rgba(255,255,255,.85)",
-        "--chipBg":"rgba(255,255,255,.8)",
-        "--accent":"#059669",
-      },
-      gachaText:"#0f172a",
-      gachaShadow:"0 1px 2px rgba(255,255,255,.7)"
+    return { // island
+      style:{ "--fg":"#0f172a","--fgMuted":"#475569","--cardBg":"rgba(255,255,255,.85)","--chipBg":"rgba(255,255,255,.8)","--accent":"#059669" },
+      gachaText:"#0f172a", gachaShadow:"0 1px 2px rgba(255,255,255,.7)"
     };
   },[theme]);
 }
@@ -182,36 +146,30 @@ function ConfettiOverlay(){
 
 /* ========= App ========= */
 function App(){
-  // 状態
   const [habits,setHabits]=useState(()=>{try{return JSON.parse(localStorage.getItem("stampcard_v10")||"[]")}catch{return[]}});
   const [theme,setTheme]=useState(()=>{try{return JSON.parse(localStorage.getItem("stampcard_theme")||'"island"')}catch{return "island"}});
   const [reduceMotion,setReduceMotion]=useState(false);
-  const [view,setView]=useState("cards"); // cards | shop | reward_settings
+  const [view,setView]=useState("cards");
   const [currentMonth,setCurrentMonth]=useState(new Date());
-  const [banner,setBanner]=useState(null); // {text,iconKey,effect?}
+  const [banner,setBanner]=useState(null);
 
-  // ガチャ/ポイント
   const [gachaHistory,setGachaHistory]=useState(()=>{try{return JSON.parse(localStorage.getItem("stampcard_gacha")||"{}")}catch{return{}}});
   const [pointsSpent,setPointsSpent]=useState(()=>{try{return JSON.parse(localStorage.getItem("stampcard_points_spent")||"0")}catch{return 0}});
   const [redeemHistory,setRedeemHistory]=useState(()=>{try{return JSON.parse(localStorage.getItem("stampcard_redeem_hist")||"[]")}catch{return[]}});
 
-  // 永続化
   useEffect(()=>localStorage.setItem("stampcard_v10",JSON.stringify(habits)),[habits]);
   useEffect(()=>localStorage.setItem("stampcard_theme",JSON.stringify(theme)),[theme]);
   useEffect(()=>localStorage.setItem("stampcard_gacha",JSON.stringify(gachaHistory)),[gachaHistory]);
   useEffect(()=>localStorage.setItem("stampcard_points_spent",JSON.stringify(pointsSpent)),[pointsSpent]);
   useEffect(()=>localStorage.setItem("stampcard_redeem_hist",JSON.stringify(redeemHistory)),[redeemHistory]);
 
-  // ポイント
   const stampPoints=useMemo(()=>habits.reduce((s,h)=>s+Object.values(h.stamps||{}).filter(Boolean).length,0),[habits]);
   const bonusPoints=useMemo(()=>Object.values(gachaHistory).reduce((s,r)=>s+(r?.bonus||0),0),[gachaHistory]);
   const totalPoints=stampPoints+bonusPoints;
   const availablePoints=Math.max(0,totalPoints-pointsSpent);
 
-  // 月データ
   const days=useMemo(()=>generateMonth(currentMonth),[currentMonth]);
 
-  // 操作
   const addHabit=(name,rule)=>setHabits(prev=>[...prev,{id:uid(),name,rule,created_at:todayKey(),stamps:{},restDays:{},rewards:[]}]);
   const deleteHabit=(id)=>{ if(confirm("このカードを削除しますか？")) setHabits(prev=>prev.filter(h=>h.id!==id)); };
 
@@ -232,7 +190,7 @@ function App(){
   };
 
   const toggleRest=(habitId,dateKey)=>{
-    if(daysDiff(todayKey(),dateKey)>-2) return; // 当日・翌日は不可
+    if(daysDiff(todayKey(),dateKey)>-2) return;
     setHabits(prev=>prev.map(h=>{
       if(h.id!==habitId) return h;
       const next={...h,restDays:{...(h.restDays||{})}};
@@ -249,7 +207,6 @@ function App(){
     setHabits(prev=>prev.map(h=>h.id!==habitId?h:({...h,rewards:(h.rewards||[]).filter((_,i)=>i!==idx)})));
   };
 
-  // カード内から交換（全体ポイントから引落）
   const redeemFromCard=(habitId,rewardIndex)=>{
     const h=habits.find(x=>x.id===habitId); if(!h) return;
     const r=(h.rewards||[])[rewardIndex]; if(!r) return;
@@ -259,12 +216,10 @@ function App(){
     setBanner({text:`「${r.label}」を受け取り！`,iconKey:"party",effect:"confetti"}); setTimeout(()=>setBanner(null),2000);
   };
 
-  // 新規カードフォーム
   const [newName,setNewName]=useState("");
   const [newRule,setNewRule]=useState("");
   const createByButton=()=>{ addHabit(newName||"マイ・スタンプ", newRule||"毎日1回、できたらスタンプ"); setNewName(""); setNewRule(""); };
 
-  // テーマ変数
   const themeVars=useThemeVars(theme);
 
   return (
@@ -272,7 +227,6 @@ function App(){
       <Background theme={theme}/>
       <style>{keyframesCSS}</style>
 
-      {/* ヘッダー */}
       <header className="sticky top-0 z-20 border-b" style={{background:"rgba(255,255,255,.75)",backdropFilter:"blur(6px)"}}>
         <div className="max-w-5xl mx-auto px-3 py-2">
           <div className="flex items-center gap-2">
@@ -309,22 +263,15 @@ function App(){
         </div>
       </header>
 
-      {/* バナー */}
       {banner && (
         <div className={`fixed top-16 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-2xl shadow-xl border ${reduceMotion?"":"animate-pop"}`} style={{background:"rgba(255,247,237,.95)",color:"#7c2d12"}}>
-          <span className="inline-block w-5 h-5 align-middle mr-2">
-            {/* ざっくりアイコン出し分け */}
-            {banner.iconKey && React.createElement(Svg[banner.iconKey]||(()=>null),{className:"w-5 h-5"})}
-          </span>
           <span className="font-semibold align-middle">{banner.text}</span>
         </div>
       )}
       {banner?.effect==="confetti" && !reduceMotion && <ConfettiOverlay/>}
 
-      {/* ビュー */}
       {view==="cards" ? (
         <main className="relative z-10 max-w-5xl mx-auto px-4 py-6">
-          {/* ガチャ */}
           <div className="rounded-2xl shadow-sm border p-4 mb-4" style={{background:"var(--cardBg)"}}>
             <div className="font-semibold mb-3 text-center" style={{color:"var(--fg)"}}>今日のガチャ</div>
             <div className="w-full flex items-center justify-center">
@@ -352,14 +299,15 @@ function App(){
                   <div className="absolute inset-x-0 top-3 flex items-center justify-center"><Svg.capsuleTop className="w-32 h-16"/></div>
                   <div className="absolute inset-x-0 bottom-3 flex items-center justify-center"><Svg.capsuleBottom className="w-32 h-16"/></div>
                   <div className="absolute inset-0 flex items-center justify-center font-bold text-xl"
-                       style={{color:themeVars.gachaText, textShadow:themeVars.gachaShadow}}>回す！</div>
+                       style={{color:useThemeVars(theme).gachaText, textShadow:useThemeVars(theme).gachaShadow}}>回す！</div>
                 </button>
               )}
             </div>
             <div className="text-xs mt-2 text-center" style={{color:"var(--fgMuted)"}}>ポイント：スタンプ + ボーナス（結果は自動加算）</div>
           </div>
 
-          {/* 新規カード */}
+          <NewCardBox {...{createByButton:new Function(),theme}} /> {/* ダミー防止：Babel最適化回避 */}
+
           <div className="rounded-2xl shadow-sm border p-4 mb-6" style={{background:"var(--cardBg)"}}>
             <div className="font-semibold mb-3" style={{color:"var(--fg)"}}>新しいスタンプカード</div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -369,7 +317,6 @@ function App(){
             </div>
           </div>
 
-          {/* 月ナビ + 合計 */}
           <div className="flex flex-wrap items-center justify-between mb-3 gap-2">
             <div className="flex items-center gap-2">
               <button onClick={()=>setCurrentMonth(new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1))} className="h-9 px-3 rounded-xl border" style={{background:"var(--chipBg)",color:"var(--fg)"}}>← 前月</button>
@@ -382,7 +329,6 @@ function App(){
             </div>
           </div>
 
-          {/* カード一覧 */}
           <div className="space-y-6">
             {habits.length===0 && (<div className="text-sm rounded-xl p-3 inline-block" style={{background:"var(--chipBg)",color:"var(--fg)"}}>まずカードを作成してください。</div>)}
             {habits.map(h=>(
@@ -424,6 +370,9 @@ function App(){
   );
 }
 
+// ダミー：Babel の不要最適化を避けるための空コンポーネント（実害なし）
+function NewCardBox(){ return null; }
+
 /* ========= sub components ========= */
 function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCard,availablePoints,onRedeem}){
   const {name,rule,stamps={},restDays={},rewards=[]}=habit;
@@ -438,7 +387,6 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
 
   return (
     <div className="rounded-3xl border shadow-sm overflow-hidden" style={{background:"var(--cardBg)"}}>
-      {/* ヘッダー */}
       <div className="p-4 flex items-center gap-3">
         <div className="flex-1 min-w-0">
           <div className="text-lg font-semibold truncate flex items-center gap-2" style={{color:"var(--fg)"}}>
@@ -460,7 +408,6 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
         <button onClick={onDeleteCard} className="ml-2 px-2 py-1 text-xs rounded-lg border hover:opacity-80" style={{color:"#dc2626",background:"var(--chipBg)"}}>削除</button>
       </div>
 
-      {/* 月カレンダー */}
       <div className="px-4 pb-4">
         <div className="rounded-3xl p-3 border shadow-inner" style={{background:"linear-gradient(135deg,#f7f5ef,#efe9dc)"}}>
           <div className="grid grid-cols-7 gap-1 text-[12px] mb-1 font-medium" style={{color:"var(--fg)"}}>
@@ -488,18 +435,15 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
                     style={{
                       background: marked? "rgba(16,185,129,.92)": (rest? "rgba(16,185,129,.10)":"rgba(16,185,129,.12)"),
                       borderColor: marked? "#065f46":"rgba(16,185,129,.35)",
-                      color: marked? "#fff":"var(--fg)",
-                      ringColor: "#f59e0b"
+                      color: marked? "#fff":"var(--fg)"
                     }}
                   >
                     <span className="absolute top-1 left-1 text-[12px]" style={{opacity:marked?.9:.8}}>{d.getDate()}</span>
 
-                    {/* 中央アイコン */}
                     {iconKey ? (
-                      <div className={marked?"animate-sparkle":""}><Svg[iconKey] className="w-10 h-10"/></div>
+                      <div className={marked?"animate-sparkle":""}>{React.createElement(Svg[iconKey],{className:"w-10 h-10"})}</div>
                     ) : (!rest && <Svg.leaf className="w-8 h-8" style={{opacity:.2}}/>)}
 
-                    {/* スペシャルバッジ（小型化して重ならないように） */}
                     {special && (
                       <span className="absolute -top-1 left-1/2 -translate-x-1/2 text-[10px] font-bold px-1 py-0.5 rounded-full border"
                             style={{background:"rgba(251,191,36,.8)", color:"#7c2d12", borderColor:"#f59e0b"}}>
@@ -507,7 +451,7 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
                       </span>
                     )}
 
-                    {/* 休息バッジ（セル内右下・超小型） */}
+                    {/* ★ 休息バッジ：超小型、セル右下に収める */}
                     {rest && (
                       <span className="absolute bottom-0.5 right-0.5 text-[9px] leading-none px-1 rounded border"
                             style={{background:"rgba(255,255,255,.9)", color:"#0f172a", borderColor:"rgba(15,23,42,.15)"}}>
@@ -515,7 +459,7 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
                       </span>
                     )}
 
-                    {/* 休息切替トグル（セル内右下、当日/翌日以外のみ表示） */}
+                    {/* ★ 休息切替：当日/翌日以外のみ表示。ボタンも 1 マス内に収める */}
                     {restAllowed && !isToday && (
                       <button onClick={()=>onToggleRest(k)}
                         className="absolute bottom-0.5 right-0.5 text-[9px] leading-none px-1 rounded border hover:opacity-90"
@@ -529,7 +473,6 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
             })}
           </div>
 
-          {/* 交換可能なご褒美（カード直下） */}
           <div className="mt-4 rounded-2xl border p-2" style={{background:"var(--chipBg)"}}>
             <div className="font-semibold text-sm mb-1" style={{color:"var(--fg)"}}>交換可能なご褒美</div>
             {exchangeable.length===0 ? (
@@ -549,7 +492,6 @@ function HabitCard({habit,days,currentMonth,onStampToday,onToggleRest,onDeleteCa
         </div>
       </div>
 
-      {/* 所有ポイント＆ご褒美（状態表示のみ） */}
       <div className="px-4 pb-4 text-sm" style={{color:"var(--fg)"}}>
         <div className="mb-2">このカードのスタンプ数：<b>{total}</b></div>
         {(rewards||[]).length===0 ? (
@@ -661,11 +603,14 @@ function RewardSettings({habits,addReward,removeReward}){
 
 /* ========= mount ========= */
 (function mount(){
-  const root=document.getElementById('root');
-  if(!root) return setTimeout(mount,20);
-  if(ReactDOM.createRoot){
-    ReactDOM.createRoot(root).render(<App/>);
-  }else{
-    ReactDOM.render(<App/>, root);
+  function go(){
+    const root=document.getElementById('root');
+    if(!root) return setTimeout(go,20);
+    if(ReactDOM.createRoot){
+      ReactDOM.createRoot(root).render(<App/>);
+    }else{
+      ReactDOM.render(<App/>, root);
+    }
   }
+  go();
 })();
