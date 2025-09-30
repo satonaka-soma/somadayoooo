@@ -8,7 +8,7 @@
     />
     <title>スタンプカード React版</title>
 
-    <!-- PWA（任意・入れてOK） -->
+    <!-- PWA（任意） -->
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icon-192.png" />
     <link rel="apple-touch-icon" href="icon-512.png" />
@@ -32,35 +32,65 @@
         opacity: 0.7;
         font-size: 14px;
       }
+      .error {
+        max-width: 92vw;
+        margin: 24px auto 0;
+        padding: 12px 14px;
+        background: #fff1f2;
+        color: #991b1b;
+        border: 1px solid #fecdd3;
+        border-radius: 12px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+        line-height: 1.5;
+      }
     </style>
   </head>
   <body>
     <noscript>JavaScript を有効にしてください。</noscript>
     <div id="root"><span class="loading">スタンプカード React版 読み込み中…</span></div>
 
-    <!-- React本体（CDN） -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- React 18（UMD、グローバル React / ReactDOM を提供） -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
 
-    <!-- あなたのビルド済みバンドルを ESM として読み込んで明示的に描画 -->
+    <!-- フォールバック付きローダ：ESM import を2回試し、ダメなら詳細エラーを表示 -->
     <script type="module">
-      // ※ キャッシュ回避のため ?v=2 などのクエリをつけています。更新時は数字を変えてください。
-      import App from "./bundle.js?v=2";
+      const rootEl = document.getElementById("root");
 
-      const mount = () => {
-        const rootEl = document.getElementById("root");
-        // すでに何か描画されていたら消す
+      async function loadApp() {
+        try {
+          // ① キャッシュバスター付き（Pagesの古いキャッシュ回避）
+          const mod1 = await import("./bundle.js?v=3");
+          return mod1?.default || mod1;
+        } catch (e1) {
+          try {
+            // ② 素のパスで再挑戦
+            const mod2 = await import("./bundle.js");
+            return mod2?.default || mod2;
+          } catch (e2) {
+            // ③ それでもダメなら画面に詳細エラーを出す
+            rootEl.innerHTML =
+              '<div class="error"><b>読み込みエラー</b>\\n' +
+              (e1?.message || e1) + '\\n----\\n' +
+              (e2?.message || e2) + '\\n\\n' +
+              'bundle.js が正しく配信されているか、ファイル名/場所を確認してください。</div>';
+            throw e2;
+          }
+        }
+      }
+
+      function mount(App) {
         rootEl.innerHTML = "";
         const root = ReactDOM.createRoot(rootEl);
         root.render(React.createElement(App));
-      };
-
-      // 安全に実行
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", mount);
-      } else {
-        mount();
       }
+
+      (async () => {
+        const App = await loadApp();
+        mount(App);
+      })();
     </script>
   </body>
 </html>
