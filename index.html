@@ -2,24 +2,35 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>スタンプカード React版</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- React / ReactDOM UMD -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-  <!-- Babel Standalone -->
+  <!-- Babel (JSX 変換用。開発時のみ必要) -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    body { margin: 0; font-family: sans-serif; }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f9fafb;
+    }
+    #root {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+    }
   </style>
 </head>
 <body>
   <div id="root">スタンプカード React版 読み込み中…</div>
 
-  <!-- JSX入りのbundle.jsをBabelで変換して実行 -->
-  <script type="text/babel" src="bundle.js"></script>
+  <!-- あなたが用意した bundle.js を読み込み -->
+  <script src="./bundle.js"></script>
 </body>
 </html>
