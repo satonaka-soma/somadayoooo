@@ -1,15 +1,90 @@
-(()=>{var e,t={898:(e,t,n)=>{"use strict";n.d(t,{Z:()=>p});var r=n(81),o=n.n(r),a=n(645),i=n.n(a),c=n(667),s=n.n(c),l=new URL(n(831),n.b),u=i()(o()),d=s()(l);u.push([e.id,"body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;background:#f9fafb}#root{min-height:100vh}",""]);const p=u},645:e=>{"use strict";e.exports=function(e){var t=[];return t.toString=function(){return this.map((function(t){var n="",r=void 0!==t[5];return t[4]&&(n+="@supports (".concat(t[4],") {")),t[2]&&(n+="@media ".concat(t[2]," {")),r&&(n+="@layer".concat(t[5].length>0?" ".concat(t[5]):""," {")),n+=e(t),r&&(n+="}"),t[2]&&(n+="}"),t[4]&&(n+="}"),n})).join("")},t.i=function(e,n,r,o,a){"string"==typeof e&&(e=[[null,e,void 0]]);var i={};if(r)for(var c=0;c<this.length;c++){var s=this[c][0];null!=s&&(i[s]=!0)}for(var l=0;l<e.length;l++){var u=[].concat(e[l]);r&&i[u[0]]||(void 0!==a&&(void 0===u[5]||(u[1]="@layer".concat(u[5].length>0?" ".concat(u[5]):""," {").concat(u[1],"}")),u[5]=a),n&&(u[2]?(u[1]="@media ".concat(u[2]," {").concat(u[1],"}"),u[2]=n):u[2]=n),t.push(u))}},t}},667:e=>{"use strict";e.exports=function(e,t){return t||(t={}),e?(e=String(e.__esModule?e.default:e),/^['"].*['"]$/.test(e)&&(e=e.slice(1,-1)),t.hash&&(e+=t.hash),/[\t\n\f\r "'=<>`]/.test(e)?JSON.stringify(e):e):e}},81:e=>{"use strict";e.exports=function(e){return e[1]}},831:(e,t,n)=>{e.exports=n.p+"icon-192.png"}},n={};function r(e){var o=n[e];if(void 0!==o)return o.exports;var a=n[e]={id:e,loaded:!1,exports:{}};return t[e].call(a.exports,a,a.exports,r),a.loaded=!0,a.exports}r.m=t,e=[],r.O=(t,n,o,a)=>{if(!n){var i=1/0;for(l=0;l<e.length;l++){for(var[n,o,a]=e[l],c=!0,s=0;s<n.length;s++)(!1&a||i>=a)&&Object.keys(r.O).every((e=>r.O[e](n[s])))?n.splice(s--,1):(c=!1,a<i&&(i=a));if(c){e.splice(l--,1);var u=o();void 0!==u&&(t=u)}}return t}a=a||0;for(var l=e.length;l>0&&e[l-1][2]>a;l--)e[l]=e[l-1];e[l]=[n,o,a]},r.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return r.d(t,{a:t}),t},r.d=(e,t)=>{for(var n in t)r.o(t,n)&&!r.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},r.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}(),r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r.nmd=e=>(e.paths=[],e.children||(e.children=[]),e),r.p="./",(()=>{var e={179:0};r.O.j=t=>0===e[t];var t=(t,n)=>{var o,a,[i,c,s]=n,l=0;if(i.some((t=>0!==e[t]))){for(o in c)r.o(c,o)&&(r.m[o]=c[o]);if(s)var u=s(r)}for(t&&t(n);l<i.length;l++)a=i[l],r.o(e,a)&&e[a]&&e[a][0](),e[a]=0;return r.O(u)},n=self.webpackChunk=self.webpackChunk||[];n.forEach(t.bind(null,0)),n.push=t.bind(null,n.push.bind(n))})()})();
-(()=>{"use strict";var e,t,n,r,o={418:(e,t,n)=>{n.d(t,{Z:()=>o});var r=n(645),a=n.n(r),i=n(667),c=n.n(i),s=new URL(n(32),n.b),l=new URL(n(692),n.b),u=a()(function(e){return e[1]});u.push([e.id,"",""]);const d=u;d.locals={},d.push([e.id,`#root{width:100%;height:100%}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:10}
-.bg-night{background:linear-gradient(to bottom,#1a1a40,#000)}
-.card{border-radius:1rem;box-shadow:0 2px 6px rgba(0,0,0,.15);background:white;padding:1rem}
-.stamp{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:.75rem;border:2px solid #ccc;background:#f0fdf4;font-size:1.25rem}
-.stamp.marked{background:#10b981;color:white;border-color:#059669}
-.stamp.rest{background:#e5e7eb;border-color:#9ca3af}
-.stamp.today{outline:2px solid #fbbf24}
-@keyframes sparkle{0%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));transform:scale(1)}
-50%{filter:drop-shadow(0 0 8px rgba(255,255,255,1));transform:scale(1.1)}
-100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));transform:scale(1)}}`,""]);var p=d;const o=p},645:e=>{e.exports=function(e){var t=[];return t.toString=function(){return this.map((function(t){var n="",r=void 0!==t[5];return t[4]&&(n+="@supports (".concat(t[4],") {")),t[2]&&(n+="@media ".concat(t[2]," {")),r&&(n+="@layer".concat(t[5].length>0?" ".concat(t[5]):""," {")),n+=e(t),r&&(n+="}"),t[2]&&(n+="}"),t[4]&&(n+="}"),n})).join("")},t.i=function(e,n,r,o,a){"string"==typeof e&&(e=[[null,e,void 0]]);var i={};if(r)for(var c=0;c<this.length;c++){var s=this[c][0];null!=s&&(i[s]=!0)}for(var l=0;l<e.length;l++){var u=[].concat(e[l]);r&&i[u[0]]||(void 0!==a&&(void 0===u[5]||(u[1]="@layer".concat(u[5].length>0?" ".concat(u[5]):""," {").concat(u[1],"}")),u[5]=a),n&&(u[2]?(u[1]="@media ".concat(u[2]," {").concat(u[1],"}"),u[2]=n):u[2]=n),t.push(u))}},t}},667:e=>{e.exports=function(e,t){return t||(t={}),e?(e=String(e.__esModule?e.default:e),/^['"].*['"]$/.test(e)&&(e=e.slice(1,-1)),t.hash&&(e+=t.hash),/[\t\n\f\r "'=<>`]/.test(e)?JSON.stringify(e):e):e}},32:(e,t,n)=>{e.exports=n.p+"icon-512.png"},692:(e,t,n)=>{e.exports=n.p+"icon-192.png"}},a={};function i(e){var t=a[e];if(void 0!==t)return t.exports;var n=a[e]={id:e,loaded:!1,exports:{}};return o[e](n,n.exports,i),n.loaded=!0,n.exports}i.m=o,e=[],i.O=(t,n,r,o)=>{if(!n){var a=1/0;for(l=0;l<e.length;l++){for(var[n,r,o]=e[l],c=!0,s=0;s<n.length;s++)(!1&o||a>=o)&&Object.keys(i.O).every((e=>i.O[e](n[s])))?n.splice(s--,1):(c=!1,o<a&&(a=o));if(c){e.splice(l--,1);var u=r();void 0!==u&&(t=u)}}return t}o=o||0;for(var l=e.length;l>0&&e[l-1][2]>o;l--)e[l]=e[l-1];e[l]=[n,r,o]},i.d=(e,t)=>{for(var n in t)i.o(t,n)&&!i.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},i.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),i.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.p="./";
-var c={};(()=>{i.r(c),i.d(c,{default:()=>H});var e=i(418),t=i(898),n=i.n(t),r=n()(e.Z);r.push([e.id,"",""]);const o=r;function a(e){return new Date(e).toLocaleDateString("en-CA")}function s(e){return new Date(e).toLocaleDateString("ja-JP",{year:"numeric",month:"short",day:"numeric"})}function l(){return Math.random().toString(36).slice(2,10)}function u(e,t){return Math.floor((new Date(e)-new Date(t))/(1e3*60*60*24))}function d(e){const t=e.getFullYear(),n=e.getMonth(),r=new Date(t,n,1),o=new Date(t,n+1,0),a=new Date(r);a.setDate(r.getDate()-((r.getDay()+6)%7));const s=new Date(o);s.setDate(o.getDate()+(7-((o.getDay()+6)%7)-1));const l=[];for(let e=new Date(a);e<=s;e.setDate(e.getDate()+1))l.push(new Date(e));return l}const f=[{n:30,icon:"party",label:"30日連続!!"},{n:20,icon:"gem",label:"20日連続!!"},{n:15,icon:"bouquet",label:"15日連続!!"},{n:10,icon:"car",label:"10日連続!!"},{n:5,icon:"gift",label:"5日連続!!"},{n:3,icon:"frog",label:"3日連続!!"}];function m(e,t,n){let r=0;const o=new Date(n);for(let n=0;n<500;n++){const a=new Date(o);a.setDate(o.getDate()-n);const s=a.toLocaleDateString("en-CA");if(e[s]||t&&t[s])r++;else break}return r}const p={leaf:e=>React.createElement("div",{className:"text-green-600"}, "🍃"),paw:e=>React.createElement("div",{className:"text-sky-500"},"🐾"),flower:e=>React.createElement("div",{className:"text-pink-400"},"🌸"),frog:e=>React.createElement("div",null,"🐸"),gift:e=>React.createElement("div",null,"🎁"),car:e=>React.createElement("div",null,"🚗"),bouquet:e=>React.createElement("div",null,"💐"),gem:e=>React.createElement("div",null,"💎"),party:e=>React.createElement("div",null,"🎉")},h=["leaf","paw","flower"];function g({iconKey:e}){const t=p[e];return t?t({}):null}function y({habit:e,days:t,currentMonth:n,onStampToday:r,onToggleRest:o,totalPoints:p}){const{ name:h,rule:y,stamps:b={},restDays:v={},rewards:x=[]}=e,j=Object.values(b).filter(Boolean).length,O=React.useMemo((()=>m(b,v,a(new Date))),[b,v]),w=React.useMemo((()=>x.map((e=>({label:e.label,threshold:e.threshold,can:j>=e.threshold,remain:Math.max(0,e.threshold-j)}))).sort(((e,t)=>e.threshold-t.threshold))),[x,j]);return React.createElement("div",{className:"card mb-4"},React.createElement("div",{className:"flex items-center justify-between"},React.createElement("div",null,React.createElement("div",{className:"font-bold"},h),React.createElement("div",{className:"text-sm text-gray-600"},y)),React.createElement("div",{className:"text-right"},React.createElement("div",{className:"text-xs"},"通算"),React.createElement("div",{className:"text-2xl font-bold"},j)),React.createElement("button",{onClick:r,className:`ml-2 px-3 py-1 rounded ${b[a(new Date())]?"bg-green-600 text-white":"bg-gray-100"}`},b[a(new Date())]?"できた✓":"できた！")),React.createElement("div",{className:"grid grid-cols-7 gap-1 mt-2"},t.map(((t,r)=>{const o=a(t),i=!!b[o],c=!!v[o],l=o===a(new Date()),d=u(a(new Date()),o)<=-2,f=t.getMonth()!==n.getMonth(),p=i||c?m(b,v,o):0,h=f?"opacity-40":"";return React.createElement("div",{key:o,className:"relative"},React.createElement("button",{onClick:()=>l&&r(),onContextMenu:e=>{e.preventDefault(),d&&o()},className:`stamp ${i?"marked":c?"rest":""} ${l?"today":""} ${h}`},React.createElement("span",{className:"absolute top-1 left-1 text-[10px]"},t.getDate()),i?React.createElement(g,{iconKey:h[r%h.length]}):c?React.createElement("span",null,"休"):""))}))),React.createElement("div",{className:"text-xs text-gray-600 mt-2"},"※休息は二日後以降に設定可能"))}
-function b({totalPoints:e,availablePoints:t,pointsSpent:n,setPointsSpent:r,redeemHistory:o,redeem:a}){const[s,l]=React.useState(""),[u,d]=React.useState(10);return React.createElement("div",{className:"card"},React.createElement("div",{className:"mb-2"},"ご褒美ポイント：",React.createElement("b",null,e)," / 使用済:",n," / 使用可能:",t),React.createElement("div",{className:"flex gap-2 mb-2"},React.createElement("input",{value:s,onChange:e=>l(e.target.value),placeholder:"ご褒美名",className:"border px-2 py-1"}),React.createElement("input",{type:"number",value:u,onChange:e=>d(parseInt(e.target.value)||0),className:"border w-20"}),React.createElement("button",{onClick:()=>a(s||"ご褒美",u),className:"bg-green-600 text-white px-3 py-1 rounded"},"受け取る")),React.createElement("div",null,"履歴:",o.length===0?"なし":React.createElement("ul",null,o.map((e=>React.createElement("li",{key:e.id},s(e.at)," - ",e.label," (",e.cost,"pt)"))))))}function v({habits:e,addReward:t,removeReward:n}){const[r,o]=React.useState(e[0]?.id||null),[a,l]=React.useState(""),[u,d]=React.useState(10),f=e.find((e=>e.id===r));return React.useEffect((()=>{e.find((e=>e.id===r))||o(e[0]?.id||null)}),[e,r]),React.createElement("div",{className:"card"},React.createElement("div",{className:"font-semibold mb-2"},"ごほうびせってい"),e.length===0?React.createElement("div",null,"カードを作成してください"):React.createElement(React.Fragment,null,React.createElement("div",{className:"flex gap-2 mb-2"},React.createElement("select",{value:r,onChange:e=>o(e.target.value),className:"border px-2 py-1"},e.map((e=>React.createElement("option",{key:e.id,value:e.id},e.name)))),React.createElement("input",{type:"number",value:u,onChange:e=>d(parseInt(e.target.value)||0),className:"border w-20"}),React.createElement("input",{value:a,onChange:e=>l(e.target.value),className:"border flex-1 px-2 py-1"}),React.createElement("button",{onClick:()=>{r&&(t(r,u,a||`${u}回達成ご褒美`),l(""))},className:"bg-green-600 text-white px-3 py-1 rounded"},"追加")),!f?React.createElement("div",null,"カード未選択"):React.createElement("ul",null,(f.rewards||[]).map(((t,r)=>React.createElement("li",{key:r,className:"flex justify-between"},React.createElement("span",null,`${t.threshold} - ${t.label}`),React.createElement("button",{onClick:()=>n(f.id,r),className:"text-sm border px-2"},"削除")))))))}function H(){const[e,t]=React.useState((()=>{try{return JSON.parse(localStorage.getItem("stampcard")||"[]")}catch{return[]}})),[n,r]=React.useState("cards"),[o,p]=React.useState(new Date),[h,g]=React.useState([]),[y,b]=React.useState([]),[v,H]=React.useState(0),[k,x]=React.useState([]);React.useEffect((()=>localStorage.setItem("stampcard",JSON.stringify(e))),[e]);const O=React.useMemo((()=>e.reduce(((e,t)=>e+Object.values(t.stamps||{}).filter(Boolean).length),0)),[e]);return React.createElement("div",{id:"app",className:"p-4"},React.createElement("header",{className:"mb-4 flex gap-2"},React.createElement("button",{onClick:()=>r("cards"),className:`px-3 py-1 rounded ${"cards"===n?"bg-green-600 text-white":"bg-gray-100"}`},"カード"),React.createElement("button",{onClick:()=>r("shop"),className:`px-3 py-1 rounded ${"shop"===n?"bg-green-600 text-white":"bg-gray-100"}`},"ご褒美"),React.createElement("button",{onClick:()=>r("settings"),className:`px-3 py-1 rounded ${"settings"===n?"bg-green-600 text-white":"bg-gray-100"}`},"ごほうびせってい")), "cards"===n?React.createElement("div",null,e.map((t=>React.createElement(y,{key:t.id,habit:t,days:d(o),currentMonth:o,onStampToday:()=>{const n=a(new Date);t.stamps||(t.stamps={}),t.stamps[n]=!t.stamps[n],e.splice(e.findIndex((e=>e.id===t.id)),1,t),t.stamps[n]&&h.push({text:"スタンプ！"}),g([...h]),t.restDays&&delete t.restDays[n],t.rewards&&t.rewards.length>0&&m(t.stamps,t.restDays,n)}),onToggleRest:n=>{u(a(new Date),n)<=-2&&(t.restDays||(t.restDays={}),t.restDays[n]=!t.restDays[n],e.splice(e.findIndex((e=>e.id===t.id)),1,t),g([...h]))},totalPoints:O}))),React.createElement("button",{onClick:()=>{e.push({id:l(),name:"マイカード",rule:"毎日",stamps:{},restDays:{},rewards:[]}),t([...e])},className:"mt-2 px-3 py-1 bg-blue-500 text-white rounded"},"カード追加")):"shop"===n?React.createElement(b,{totalPoints:O,availablePoints:O-v,pointsSpent:v,setPointsSpent:H,redeemHistory:k,redeem:(n,r)=>{if(O-v<r)return;H(v+r),x([...k,{id:l(),at:new Date,label:n,cost:r}])}}):React.createElement(v,{habits:e,addReward:(n,r,o)=>{e.splice(e.findIndex((e=>e.id===n)),1,{...e.find((e=>e.id===n)),rewards:[...(e.find((e=>e.id===n)).rewards||[]),{threshold:r,label:o}]}),t([...e])},removeReward:(n,r)=>{const o=e.find((e=>e.id===n));o&&(o.rewards.splice(r,1),t([...e]))}})))};var k=H;export{k as default};
+/* bundle.js (ES5, production-lite) */
+
+/* 安全な待機: React/ReactDOMのUMDが先に来る想定だが、念のため待つ */
+(function startWhenReady() {
+  if (typeof window.React === "undefined" || typeof window.ReactDOM === "undefined") {
+    setTimeout(startWhenReady, 10);
+    return;
+  }
+  startApp();
+})();
+
+function startApp() {
+  var e = React.createElement;
+
+  // --- アプリ本体（ここにスタンプカードUIを拡張していけばOK） ---
+  function App() {
+    return e(
+      "main",
+      { style: {
+          width:"min(960px, 94vw)",
+          background:"#ffffff",
+          borderRadius:"16px",
+          padding:"24px",
+          boxShadow:"0 10px 30px rgba(0,0,0,.06)"
+        }},
+      e("h1", { style:{ margin:"0 0 12px 0", fontSize:"20px" } }, "スタンプカード React版"),
+      e("p",  { style:{ margin:"4px 0 20px 0", opacity:.7 } }, "実装成功！（GitHub Pages / 本番モード）"),
+
+      // 例: スタンプ(10)を貯めるUIのダミー
+      e(StampCard, { total: 10 })
+    );
+  }
+
+  function StampCard(props) {
+    var total = (props && props.total) || 10;
+    var _React = React, useState = _React.useState;
+    var _useState = useState(0), count = _useState[0], setCount = _useState[1];
+
+    var cells = [];
+    for (var i=0; i<total; i++) {
+      var filled = i < count;
+      cells.push(e("div", {
+        key: "cell-"+i,
+        style: {
+          width:"48px", height:"48px",
+          borderRadius:"50%",
+          border: "2px solid " + (filled ? "#10b981" : "#d1d5db"),
+          background: filled ? "#10b981" : "transparent",
+          transition:"all .15s ease"
+        }
+      }));
+    }
+
+    return e("section", null,
+      e("div", { style:{ display:"grid", gridTemplateColumns:"repeat(5, 52px)", gap:"10px" } }, cells),
+      e("div", { style:{ marginTop:"16px", display:"flex", gap:"8px" } },
+        e("button", {
+          onClick:function(){ if (count < total) setCount(count + 1); },
+          style:btnStyle()
+        }, "スタンプを押す"),
+        e("button", {
+          onClick:function(){ if (count > 0) setCount(count - 1); },
+          style:btnStyle("#111827","#e5e7eb")
+        }, "戻す"),
+        e("button", {
+          onClick:function(){ setCount(0); },
+          style:btnStyle("#b91c1c","#fee2e2")
+        }, "リセット")
+      )
+    );
+  }
+
+  function btnStyle(color, bg) {
+    var c = color || "#ffffff";
+    var b = bg || "#10b981";
+    return {
+      fontSize:"14px", padding:"10px 14px", borderRadius:"12px",
+      border:"1px solid rgba(0,0,0,.06)", cursor:"pointer",
+      background:b, color:c
+    };
+  }
+
+  var rootEl = document.getElementById("root");
+  // React 18+: createRoot があれば使う（なければ render）
+  if (ReactDOM && typeof ReactDOM.createRoot === "function") {
+    ReactDOM.createRoot(rootEl).render(React.createElement(App));
+  } else {
+    ReactDOM.render(React.createElement(App), rootEl);
+  }
+}
