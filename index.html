@@ -5,31 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>スタンプカード React版</title>
 
-  <!-- React / ReactDOM (UMD版) -->
+  <!-- React / ReactDOM (UMD) 必須 -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-  <!-- Babel（JSXをブラウザで変換する） -->
+  <!-- Babel（JSXをブラウザで変換）必須：必ず先に読み込む -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    html,body{margin:0;padding:0;height:100%;background:#f3f4f6;font-family:sans-serif}
+    html,body{margin:0;padding:0;height:100%;background:#f3f4f6;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto}
     #root{min-height:100vh;display:flex;align-items:center;justify-content:center;color:#475569}
-    .err{white-space:pre-wrap;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px;margin:16px}
+    .err{white-space:pre-wrap;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px;margin:16px;max-width:960px}
+    .hide{display:none}
   </style>
 </head>
 <body>
   <div id="root">スタンプカード React版 読み込み中…</div>
 
-  <!-- あなたの bundle.js を JSX として読み込む -->
-  <script type="text/babel" data-presets="env,react" src="./bundle.js"></script>
-
-  <!-- デバッグ用：エラーを root に表示 -->
+  <!-- ★ 重要：bundle.js を fetch→Babel 変換→実行。Script error 問題を回避し、スタックも表示 -->
   <script>
+    (async function boot(){
+      const root = document.getElementById('root');
+      try {
+        // 同階層の bundle.js を取得
+        const res = await fetch('./bundle.js', { cache:'no-store' });
+        if (!res.ok) throw new Error('bundle.js を取得できません: HTTP ' + res.status);
+        const src = await res.text();
+
+        // Babel で JSX 変換（env, react）
+        const out = Babel.transform(src, { presets: ['env','react'] }).code;
+
+        // 実行（React/ReactDOM を引数で渡す）
+        new Function('React','ReactDOM', out + '\n//# sourceURL=bundle.transpiled.js')(window.React, window.ReactDOM);
+      } catch (e) {
+        console.error(e);
+        root.innerHTML =
+          '<div class="err"><b>実行時エラー</b>\n' +
+          (e && (e.stack || e.message) || '不明なエラー') +
+          '\n\n※ 強制再読み込み（Shift+更新）やキャッシュ削除もお試しください。</div>';
+      }
+    })();
+
+    // その他の取りこぼし用
     window.addEventListener('error', e => {
-      const r=document.getElementById('root');
-      if(!r) return;
-      r.innerHTML = '<div class="err"><b>実行時エラー</b>\n'+ (e?.error?.stack||e.message||'不明なエラー') + '</div>';
+      const r = document.getElementById('root');
+      if (!r) return;
+      r.innerHTML =
+        '<div class="err"><b>実行時エラー</b>\n' +
+        (e?.error?.stack || e.message || '不明なエラー') + '</div>';
     });
   </script>
 </body>
